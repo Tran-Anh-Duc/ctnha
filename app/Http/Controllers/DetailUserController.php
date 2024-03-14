@@ -39,10 +39,9 @@ class DetailUserController extends Controller
 
     public function create_info_user(Request $request,$id)
     {
-            //dd($request->all());die();
-
         $data = $request->all();
         $user = $this->detailUserRepository->create_user($data,$id);
+        return redirect()->route('ctn.editUserDetail', ['id' => $id]);
     }
 
 }

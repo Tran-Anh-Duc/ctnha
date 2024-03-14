@@ -23,7 +23,7 @@ class DetailUser extends Migration
             $table->string('passport')->nullable();
             $table->string('nickname')->nullable();
             $table->integer('age')->nullable();
-            $table->date('birthday')->nullable();
+            $table->string('birthday')->nullable();
             $table->integer('status')->nullable();
             $table->integer('role')->nullable();
             $table->string('image')->nullable();

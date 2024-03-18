@@ -10,6 +10,9 @@ use App\Models\LoyalCustomer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+
 
 class DetailUserRepository extends BaseRepository
 {
@@ -33,9 +36,12 @@ class DetailUserRepository extends BaseRepository
 
     public function edit_detail_user($id)
     {
+        //detail_user
         if (!empty($id) and $id != ''){
+
             $users = DB::table('detail_user')
-                ->join('loyal_customers', 'loyal_customers.id', '=', 'detail_user.loyal_customers_id')
+                ->rightJoin('loyal_customers', 'loyal_customers.id', '=', 'detail_user.loyal_customers_id')
+                ->where('loyal_customers.id','=',$id)
                 ->select(
                     'loyal_customers.*',
                     'detail_user.address',
@@ -50,21 +56,27 @@ class DetailUserRepository extends BaseRepository
                 )
                 ->first();
 
-//            echo("<pre>");
-//            print_r($users);
-//            echo("<pre>");
-//            die();
         }
+
         return $users;
     }
 
-    public function create_user($data,$id)
+    public function create_user($data,$id,$request)
     {
-        $date = date('Y/m/d',strtotime($data['birthday']));
-        echo("<pre>");
-        print_r($date);
-        echo("<pre>");
-        die();
+
+
+        $student = new DetailUser;
+        if($request->hasfile('image'))
+        {
+            $file = $request->file('image');
+            $filename = time().'.'.$file->getClientOriginalName();
+            $path = public_path('images');
+            $file->move($path, $filename);
+            $student->image = $filename;
+        }
+
+        $date = (strtotime($data['birthday']));
+
         $array = [
             DetailUser::COLUMN_NAME => $data['name'] ?? null,
             DetailUser::COLUMN_EMAIL => $data['email'] ?? null,
@@ -76,16 +88,19 @@ class DetailUserRepository extends BaseRepository
             DetailUser::COLUMN_BIRTHDAY => !empty($date) ? $date :null,
             DetailUser::COLUMN_STATUS => $data['status'] ?? null,
             DetailUser::COLUMN_ROLE => $data['role'] ?? null,
-            DetailUser::COLUMN_IMAGE => $data['image'] ?? null,
+            DetailUser::COLUMN_IMAGE => $student['image'] ?? null,
             DetailUser::COLUMN_LOYAL_CUSTOMERS_ID => !empty($id) ? $id : null,
         ];
 
         //$get_one_user_detail = $this->model->find($id);
 
-        $get_one_user_detail = $this->model->where([DetailUser::COLUMN_LOYAL_CUSTOMERS_ID => $id])->first()->toArray();
+        $get_one_user_detail = $this->model->where([DetailUser::COLUMN_LOYAL_CUSTOMERS_ID => $id])->first();
+
         if (!empty($get_one_user_detail) and $get_one_user_detail != ''){
+
             $result = $this->model->where([DetailUser::COLUMN_LOYAL_CUSTOMERS_ID => $id])->update($array);
         }else{
+
             $result = $this->model->create($array);
         }
         return $result;
@@ -96,4 +111,7 @@ class DetailUserRepository extends BaseRepository
     {
 
     }
+
+
+
 }

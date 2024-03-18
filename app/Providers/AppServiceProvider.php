@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\LoyalCustomer;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+//        Gate::define('access',function (LoyalCustomer $loyalCustomer){
+//           return $loyalCustomer->id == 2;
+//        });
     }
 }

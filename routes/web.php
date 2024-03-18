@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HouseProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -44,3 +45,10 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('bread.logout');
 Route::get('/user/list', [DetailUserController::class, 'view_all_user'])->name('ctn.listUserDetail');
 Route::get('/user/list/{id}', [DetailUserController::class, 'view_edit_user'])->name('ctn.editUserDetail');
 Route::post('/user/create/{id}', [DetailUserController::class, 'create_info_user'])->name('ctn.createUserDetail');
+
+
+//house_product
+Route::get('/house/list', [HouseProductController::class, 'view_all_house_product'])->name('ctn.listHouseProduct');
+Route::get('/house/view_create', [HouseProductController::class, 'view_create_house_product'])->name('ctn.viewCreateHouseProduct');
+Route::post('/house/create', [HouseProductController::class, 'create_house_product'])->name('ctn.createHouseProduct');
+Route::get('/house/detail/{id}', [HouseProductController::class, 'view_detail_house'])->name('ctn.detailHouseProduct');

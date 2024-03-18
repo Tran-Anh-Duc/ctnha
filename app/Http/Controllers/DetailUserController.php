@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Repository\DetailUserRepository;
 use App\Repository\UserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
+
 
 class DetailUserController extends Controller
 {
@@ -40,8 +43,10 @@ class DetailUserController extends Controller
     public function create_info_user(Request $request,$id)
     {
         $data = $request->all();
-        $user = $this->detailUserRepository->create_user($data,$id);
+        $user = $this->detailUserRepository->create_user($data,$id,$request);
         return redirect()->route('ctn.editUserDetail', ['id' => $id]);
     }
+
+
 
 }

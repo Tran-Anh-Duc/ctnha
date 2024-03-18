@@ -1,78 +1,56 @@
 
 @extends("backend.layout.master")
 @section('content')
+    <?php
+        $message = \Illuminate\Support\Facades\Session::get('message');
 
-    <form action="{{route('ctn.createUserDetail', ['id' =>$user->id ])}}" method="post" enctype="multipart/form-data">
+        if ($message){
+                echo '<span>'.$message.'</span>';
+            \Illuminate\Support\Facades\Session::put('message',null);
+        }
+    ?>
+    <form action="{{route('ctn.updateHouseProduct', ['id' =>$item['id'] ])}}" method="post">
         <h1 style="color: #00b0ff">Edit</h1>
         @csrf
         <button class="btn btn-success" type="submit">Change</button>
         <a  class="btn btn-success" type="button" href="{{route('ctn.listUserDetail')}}">Back</a>
         <div>
             <span style="color: white">Họ và tên:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="name" id="name" value="{{(!empty($user->name) and $user->name != '') ? $user->name : ''}}">
+            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="name" id="name" value="{{(!empty($item['name']) and $item['name'] != '') ? $item['name'] : ''}}">
         </div>
         <div>
-            <span style="color: white">Email:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="email" id="email"  value="{{(!empty($user->email) and $user->email != '') ? $user->email : ''}}" >
+            <span style="color: white">address:</span><br>
+            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="address" id="address"  value="{{(!empty($item['address']) and $item['address'] != '') ? $item['address'] : ''}}" >
         </div>
         <div>
-            <span style="color: white">Address:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="address" id="address" value="{{(!empty($user->address) and $user->address != '') ? $user->address : ''}}" >
+            <span style="color: white">number_bedrooms:</span><br>
+            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="number_bedrooms" id="number_bedrooms" value="{{(!empty($item['number_bedrooms']) and $item['number_bedrooms'] != '') ? $item['number_bedrooms'] : ''}}" >
         </div>
         <div>
-            <span style="color: white">Gender:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="gender"  id="gender" value="{{(!empty($user->gender) and $user->gender != '') ? $user->gender : ''}}">
+            <span style="color: white">number_bathrooms:</span><br>
+            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="number_bathrooms"  id="number_bathrooms" value="{{(!empty($item['number_bathrooms']) and $item['number_bathrooms'] != '') ? $item['number_bathrooms'] : ''}}">
         </div>
         <div>
-            <span style="color: white">Passport:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="passport" id="passport" value="{{(!empty($user->passport) and $user->passport != '') ? $user->passport : ''}}" >
+            <span style="color: white">description:</span><br>
+            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="description" id="description" value="{{(!empty($item['description']) and $item['description'] != '') ? $item['description'] : ''}}" >
         </div>
         <div>
-            <span style="color: white">Nickname:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="nickname" id="nickname"  value="{{(!empty($user->nickname) and $user->nickname != '') ? $user->nickname : ''}}">
+            <span style="color: white">price:</span><br>
+            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="price" id="price"  value="{{(!empty($item['price']) and $item['price'] != '') ? $item['price'] : ''}}">
         </div>
         <div>
-            <span style="color: white">Age:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="age" id="age" value="{{(!empty($user->age) and $user->age != '') ? $user->age : ''}}" >
+            <span style="color: white">type_house_id:</span><br>
+            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="type_house_id" id="type_house_id" value="{{(!empty($item['type_house_id']) and $item['type_house_id'] != '') ? $item['type_house_id'] : ''}}" >
         </div>
-        <div>
-            <span style="color: white">Birthday:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="birthday"  id="birthday" value="{{(!empty($user->birthday) and $user->birthday != '') ? date('d/m/Y',$user->birthday) : ''}}">
-        </div>
-
-        <div>
-            <span style="color: white">Role:</span><br>
-            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="role" id="role" value="{{(!empty($user->role) and $user->role != '') ? $user->role : ''}}" >
-        </div>
-
-        <div>
-            <span style="color: white">Image:</span><br>
-{{--            <input style="width: 500px" class="alert alert-primary" role="alert" type="text" name="image" id="image" value="{{(!empty($user->image) and $user->image != '') ? $user->image : ''}}" >--}}
-
-{{--            <input style="width: 500px" type="file"  name="image" id="image" required class="alert alert-primary" role="alert">--}}
-            <input type="file" name="image" id="image"  required>
-{{--            <img src="{{ asset('images/'.$user->image) ?? asset('images/imagedefaut.png')}}" alt="" style="width: 300px; height: 150px;margin-left: -65px">--}}
-            <img src="{{ (!empty($user->image) and $user->image != '')? asset('images/'.$user->image) : asset('images/imagedefaut.png')  }}" alt="" style="width: 300px; height: 150px;margin-left: -65px">
-        </div>
-
-        <div style="margin-bottom: 150px">
-            <span style="color: white">Status:</span><br>
-            <select name="status" id="status" class="alert alert-primary" role="alert" style="width: 500px">
-                <option value="1" {{(!empty($user->status) and $user->status == '1') ? "selected" : ''}}  >Active</option>
-                <option value="2" {{(!empty($user->status) and $user->status == '2') ? "selected" : ''}}  >block</option>
-            </select>
-
-        </div>
-
     </form>
-
+    @toastr_render
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
         $( function() {
-            $( "#birthday" ).datepicker();
+            //$( "#birthday" ).datepicker();
         } );
     </script>
 

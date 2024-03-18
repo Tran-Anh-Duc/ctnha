@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Repository\DetailUserRepository;
 use App\Repository\HouseProductRepository;
 use App\Repository\UserRepository;
+//use Brian2694\Toastr\Toastr;
+//use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Validator;
-
+use Brian2694\Toastr\Facades\Toastr;
 
 class HouseProductController extends Controller
 {
@@ -41,6 +43,17 @@ class HouseProductController extends Controller
         $detailHouse = $this->houseProductRepository->edit_house($id);
         $result['item'] = $detailHouse;
         return view('backend.houseProduct.edit', $result);
+    }
+
+
+    public function update_house_product(Request $request,$id)
+    {
+        $data = $request->all();
+        $updateHouse = $this->houseProductRepository->update_house($data,$id);
+        //toastr()->success("Update success");
+        Toastr::success('Update success');
+        return redirect()->route('ctn.detailHouseProduct', ['id' => $id])->with('success', 'Update success');
+
     }
 
 

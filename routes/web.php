@@ -52,3 +52,4 @@ Route::get('/house/list', [HouseProductController::class, 'view_all_house_produc
 Route::get('/house/view_create', [HouseProductController::class, 'view_create_house_product'])->name('ctn.viewCreateHouseProduct');
 Route::post('/house/create', [HouseProductController::class, 'create_house_product'])->name('ctn.createHouseProduct');
 Route::get('/house/detail/{id}', [HouseProductController::class, 'view_detail_house'])->name('ctn.detailHouseProduct');
+Route::post('/house/edit/{id}', [HouseProductController::class, 'update_house_product'])->name('ctn.updateHouseProduct');

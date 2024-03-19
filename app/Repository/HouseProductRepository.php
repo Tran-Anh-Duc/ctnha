@@ -83,10 +83,17 @@ class HouseProductRepository extends BaseRepository
             HouseProduct::COLUMN_TYPE_HOUSE_ID => (!empty($data['type_house_id']) and  $data['type_house_id'] != '') ? $data['type_house_id'] : '',
         ];
 
+
         if($array != ''){
             $poructHouse = $this->model->where(HouseProduct::COLUMN_ID,'=',$id)->update($array);
         }
         return $poructHouse;
+    }
+
+    public function delete_house($id)
+    {
+        $result = $this->model->where(HouseProduct::COLUMN_ID,'=',$id)->delete();
+        return $result;
     }
 
 

@@ -49,9 +49,36 @@ class HouseProductController extends Controller
     public function update_house_product(Request $request,$id)
     {
         $data = $request->all();
+        $validator = Validator::make($data, [
+            'name' => 'required|unique:house_product|max:255',
+            'address' => 'required',
+            'number_bedrooms' => 'required',
+            'number_bathrooms' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'type_house_id' => 'required',
+        ], [
+            'name.required' => 'Tên là bắt buộc.',
+            'name.unique' => 'Tên đã tồn tại.',
+            'name.max' => 'Tên không được vượt quá 255 ký tự.',
+            'address.required' => 'Tên là bắt buộc.',
+            'number_bedrooms.required' => 'là bắt buộc.',
+            'number_bathrooms.required' => 'là bắt buộc.',
+            'description.required' => 'là bắt buộc.',
+            'price.required' => 'là bắt buộc.',
+            'type_house_id.required' => 'là bắt buộc.',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $updateHouse = $this->houseProductRepository->update_house($data,$id);
-        //toastr()->success("Update success");
-        Toastr::success('Update success');
+        if (!empty($updateHouse) and $updateHouse == 1){
+            Toastr::success('Update success','Update success');
+        }else{
+            Toastr::error('Update error','Update error');
+        }
         return redirect()->route('ctn.detailHouseProduct', ['id' => $id])->with('success', 'Update success');
 
     }
@@ -91,6 +118,12 @@ class HouseProductController extends Controller
         }
 
         $create_house = $this->houseProductRepository->create_house($data);
+        return redirect()->route('ctn.listHouseProduct');
+    }
+
+    public function delete_house_product($id)
+    {
+        $resultHouse = $this->houseProductRepository->delete_house($id);
         return redirect()->route('ctn.listHouseProduct');
     }
 

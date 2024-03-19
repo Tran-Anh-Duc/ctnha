@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HouseProductController;
+use App\Http\Controllers\TypeHouseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -53,3 +54,8 @@ Route::get('/house/view_create', [HouseProductController::class, 'view_create_ho
 Route::post('/house/create', [HouseProductController::class, 'create_house_product'])->name('ctn.createHouseProduct');
 Route::get('/house/detail/{id}', [HouseProductController::class, 'view_detail_house'])->name('ctn.detailHouseProduct');
 Route::post('/house/edit/{id}', [HouseProductController::class, 'update_house_product'])->name('ctn.updateHouseProduct');
+Route::get('/house/delete/{id}', [HouseProductController::class, 'delete_house_product'])->name('ctn.deleteHouseProduct');
+
+
+//list_type_house
+Route::get('/type/list', [TypeHouseController::class, 'list_type_house'])->name('ctn.typeListHouse');

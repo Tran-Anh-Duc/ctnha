@@ -5,8 +5,8 @@
 <div id="input-container">
     <!-- Ô input mẫu -->
     <div class="input-row">
-        <input type="text" name="field[]" placeholder="Field 1" />
-        <input type="text" name="field[]" placeholder="Field 2" />
+        <input type="text" name="field_a" placeholder="Field 1" />
+        <input type="text" name="field_b" placeholder="Field 2" />
         <!-- Thêm các ô input khác nếu cần -->
     </div>
 </div>
@@ -25,17 +25,27 @@
 
         // Xử lý khi nhấp vào nút "Submit"
         $('#submit-data').click(function(){
-            // Thu thập dữ liệu từ các ô input
-            var formData = [];
-            $('.input-row').each(function(){
-                var inputs = $(this).find('input');
-                var rowValues = [];
-                inputs.each(function(){
-                    rowValues.push($(this).val());
+            var formData = []; // Khởi tạo mảng để lưu trữ dữ liệu từ tất cả các dòng
+
+            // Tìm tất cả các dòng input và lặp qua từng dòng
+            $('#input-container .input-row').each(function(){
+                var rowValues = {}; // Khởi tạo đối tượng để lưu trữ dữ liệu từ mỗi dòng
+
+                // Tìm tất cả các ô input trong dòng hiện tại và lặp qua từng ô
+                $(this).find('input[type="text"]').each(function(){
+                    var fieldName = $(this).attr('name');
+                    var fieldValue = $(this).val();
+                    if (fieldName !== undefined && fieldName !== "") {
+                        rowValues[fieldName] = fieldValue;
+                    } 
                 });
+
+                // Sau khi thu thập dữ liệu từ một dòng, thêm đối tượng dữ liệu này vào mảng formData
                 formData.push(rowValues);
             });
 
+            console.log(formData); // Hiển thị dữ liệu đã thu thập được trong console
+            return false;
             // Gửi dữ liệu bằng Ajax
             $.ajax({
                 url: 'url_xu_ly_logic.php', // Thay đổi thành địa chỉ URL xử lý logic của bạn
@@ -50,6 +60,9 @@
             });
         });
     });
+
+
+
 
 
 </script>

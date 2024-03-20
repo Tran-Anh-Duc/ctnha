@@ -32,6 +32,9 @@ class TypeHouseRepository extends BaseRepository
 
     public function create_house($data)
     {
+        $bool = true;
+        $getData = array();
+
         if (!empty($data) and $data != ''){
             foreach ($data as $key => $value){
                 $array = [
@@ -39,11 +42,26 @@ class TypeHouseRepository extends BaseRepository
                     TypeHouse::COLUMN_NAME_SLUG => (!empty($value['field_a']) and $value['field_a'] != '') ? $value['field_a'] : '',
                     TypeHouse::COLUMN_DESCRIPTION => (!empty($value['field_b']) and $value['field_b'] != '') ? $value['field_b'] : '',
                 ];
-                $result = $this->model->create($array);
+                if ($value['field_0'] == ''){
+                    $result = $this->model->create($array)->toArray();
+                    $getData[] = $result;
+                }else{
+                    $result = $this->model->where(TypeHouse::COLUMN_ID,'=',$value['field_0'])->update($array);
+                    $getData[] = $result;
+                }
+
             }
         }
 
-        return $result;
+       if (!empty($getData) and $getData != ''){
+           $result = sizeof($getData);
+           if ($result > 0){
+               $bool = true;
+           }else{
+               $bool = false;
+           }
+       }
+        return $bool;
     }
 
     public function edit_house($id)

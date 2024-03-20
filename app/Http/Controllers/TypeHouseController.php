@@ -59,13 +59,16 @@ class TypeHouseController extends Controller
     public function create_house_product(Request $request)
     {
         $data = $request->all();
-        echo("<pre>");
-        print_r($data);
-        echo("<pre>");
-        die();
         $result = $this->typeHouseRepository->create_house($data);
 
-        return $result;
+        if ($result == 1){
+            Toastr::success('Update success','Update success');
+            return Controller::sendResponse(self::HTTP_OK,'create success',$result);
+        }else{
+            Toastr::error('Update error','Update error');
+            return Controller::sendResponse(self::HTTP_BAD_REQUEST,'create error');
+        }
+
     }
 
     public function delete_house_product($id)

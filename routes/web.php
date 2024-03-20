@@ -59,3 +59,4 @@ Route::get('/house/delete/{id}', [HouseProductController::class, 'delete_house_p
 
 //list_type_house
 Route::get('/type/list', [TypeHouseController::class, 'list_type_house'])->name('ctn.typeListHouse');
+Route::post('/type/create', [TypeHouseController::class, 'create_house_product'])->name('ctn.createTypeListHouse');

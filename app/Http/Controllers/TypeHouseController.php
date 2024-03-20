@@ -32,9 +32,11 @@ class TypeHouseController extends Controller
         $this->typeHouseRepository = $typeHouseRepository;
     }
 
-    public function list_type_house()
+    public function list_type_house(Request $request )
     {
-        return view(('backend.typeHouse.list'));
+        $result = $this->typeHouseRepository->get_all_house();
+        $resultAll['view'] = $result;
+        return view(('backend.typeHouse.list'),$resultAll);
     }
 
     public function view_detail_house($id)
@@ -56,7 +58,14 @@ class TypeHouseController extends Controller
 
     public function create_house_product(Request $request)
     {
+        $data = $request->all();
+        echo("<pre>");
+        print_r($data);
+        echo("<pre>");
+        die();
+        $result = $this->typeHouseRepository->create_house($data);
 
+        return $result;
     }
 
     public function delete_house_product($id)

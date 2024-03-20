@@ -26,12 +26,24 @@ class TypeHouseRepository extends BaseRepository
 
     public function get_all_house()
     {
-
+        $result = $this->model->all()->toArray();
+        return $result;
     }
 
     public function create_house($data)
     {
+        if (!empty($data) and $data != ''){
+            foreach ($data as $key => $value){
+                $array = [
+                    TypeHouse::COLUMN_NAME => (!empty($value['field_a']) and $value['field_a'] != '') ? $value['field_a'] : '',
+                    TypeHouse::COLUMN_NAME_SLUG => (!empty($value['field_a']) and $value['field_a'] != '') ? $value['field_a'] : '',
+                    TypeHouse::COLUMN_DESCRIPTION => (!empty($value['field_b']) and $value['field_b'] != '') ? $value['field_b'] : '',
+                ];
+                $result = $this->model->create($array);
+            }
+        }
 
+        return $result;
     }
 
     public function edit_house($id)

@@ -23,18 +23,18 @@
                     <div class="sub-navigation">
                         <a class="mdl-navigation__link">
                             <i class="material-icons">view_comfy</i>
-                            Category List
+                            Type House
                             <i class="material-icons">keyboard_arrow_down</i>
                         </a>
                         <div class="mdl-navigation">
-                            <a class="mdl-navigation__link" href="#">
-                                List Category
+                            <a class="mdl-navigation__link" href="{{route('ctn.typeListHouse')}}">
+                                List Type House
                             </a>
                         </div>
                         @if('1=1')
                             <div class="mdl-navigation">
                                 <a class="mdl-navigation__link" href="#">
-                                    Create Category
+                                    Create Type House
                                 </a>
                             </div>
                         @endif
@@ -44,25 +44,25 @@
                     <div class="sub-navigation">
                         <a class="mdl-navigation__link">
                             <i class="material-icons">view_comfy</i>
-                            Product
+                                Product house
                             <i class="material-icons">keyboard_arrow_down</i>
                         </a>
                         <div class="mdl-navigation">
-                            <a class="mdl-navigation__link" href="#">
-                                List Product
+                            <a class="mdl-navigation__link" href="{{route('ctn.listHouseProduct')}}">
+                                List house product
                             </a>
                         </div>
                         @if('3=3')
                             <div class="mdl-navigation">
-                                <a class="mdl-navigation__link" href="#" >
-                                    Create New Product
+                                <a class="mdl-navigation__link" href="{{route('ctn.viewCreateHouseProduct')}}" >
+                                    Create New House Product
                                 </a>
                             </div>
                         @endif
                     </div>
                     <hr>
                     @if('3=3')
-                        <a class="mdl-navigation__link" href="#">
+                        <a class="mdl-navigation__link" href="{{route('ctn.listUserDetail')}}">
                             <i class="material-icons" role="presentation">person</i>
                             Account
                         </a>

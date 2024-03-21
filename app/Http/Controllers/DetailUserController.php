@@ -44,7 +44,7 @@ class DetailUserController extends Controller
     {
         $data = $request->all();
         $user = $this->detailUserRepository->create_user($data,$id,$request);
-        return redirect()->route('ctn.detailHouseProduct', ['id' => $id]);
+        return redirect()->route('ctn.editUserDetail', ['id' => $id]);
     }
 
 

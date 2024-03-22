@@ -99,9 +99,25 @@ class DetailUserRepository extends BaseRepository
         if (!empty($get_one_user_detail) and $get_one_user_detail != ''){
 
             $result = $this->model->where([DetailUser::COLUMN_LOYAL_CUSTOMERS_ID => $id])->update($array);
-        }else{
 
+            $updateIdUser = $this->model->where(['id' => $id])->update($array);
+            
+            //LoyalCustomer
+            $affected = DB::table('loyal_customer')
+                        ->where('id', 1)
+                        ->update(['votes' => 1]);
+
+            if ($result != ''){
+                    '1=1';
+            }
+
+        }else{
+            echo("<pre>");
+            print_r('herr42141');
+            echo("<pre>");
+            die();
             $result = $this->model->create($array);
+
         }
         return $result;
 

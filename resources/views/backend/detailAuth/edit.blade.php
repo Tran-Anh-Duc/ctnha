@@ -2,6 +2,19 @@
 @extends("backend.layout.master")
 @section('content')
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .toast-error{
+            background-color: red;
+        }
+
+        .toast-success{
+            background-color: green;
+        }
+    </style>
     <form action="{{route('ctn.createUserDetail', ['id' =>$user->id ])}}" method="post" enctype="multipart/form-data">
         <h1 style="color: #00b0ff">Edit</h1>
         @csrf
@@ -66,14 +79,13 @@
 
     </form>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script>
-        $( function() {
-            $( "#birthday" ).datepicker();
-        } );
+
+        $('#birthday').datepicker({
+            uiLibrary: 'bootstrap4'
+        });
+    </script>
+
     </script>
 
 @endsection

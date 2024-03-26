@@ -15,6 +15,8 @@ class LoyalCustomer extends Model
         'name',
         'email',
         'password',
+        'status',
+        'role',
     ];
 
     /**

@@ -195,6 +195,7 @@ if ($message){
         $('#add-field').off().click(function(){
             // Sao chép nội dung của hàng mẫu ẩn và thêm vào container
             var newRow = $('.hidden-1').html();
+            console.log(newRow)
             $('#input-container').append('<div class="input-row">' + newRow + '</div>');
 
             // Đặt giá trị của các ô input trong hàng mới về rỗng

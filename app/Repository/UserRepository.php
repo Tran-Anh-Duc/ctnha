@@ -61,4 +61,18 @@ class UserRepository extends BaseRepository
 
         return  [$bool,$a,$b];
     }
+
+    public function get_one_user($id)
+    {
+        $user = $this->model->where('id','=',$id)->get()->toArray();
+        return $user;
+    }
+
+
+    public function logout_user()
+    {
+        Auth::logout();
+        session()->flush();
+        return true;
+    }
 }
